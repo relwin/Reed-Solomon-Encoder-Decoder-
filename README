@@ -1,0 +1,9 @@
+This is a port and modification of Minsky’s Reed-Solomon Encoder/Decoder RSCODE module (found at http://rscode.sourceforge.net/ ) targeted for 8-bit embedded devices. RSCODE supports a variable message size up to 255 bytes, fixed at 8-bit symbols, and the ability to correct erasures as well as byte errors. RSCODE is licensed under the GPL for non-commercial use.
+
+To support embedded devices this C module, named RSCOMBO, generates a polynomial data file which is then included and recompiled into the embedded version. There also are a few #define’s which support compiling the encoder and decoder separately, thus saving ROM.
+
+Results from testing on a STM08 Discovery development board (8-bit, 16MHz CPU) show that encoding time is a function of message length and number of parity bytes, whereas decoding is significantly impacted by the number of parity bytes. For this target encoding 128 bytes with 8 bytes parity takes 6ms, decoding and correcting 4 errors takes 32ms. Reducing to 4 parity bytes cuts encoding/decoding time in half.
+
+ROM and RAM usage is very low: the encoder takes about 1k ROM and 0 bytes RAM; decoder takes 2.5k ROM and 60~120 bytes RAM, depending on parity size. The encoder and decoder use the same polynomial data so including both uses about 2.5k ROM.
+
+Usage: read the “module configuration” comments in rscombo.c to generate data and configure between workstation testing and embedded target development.
